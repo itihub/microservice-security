@@ -1,0 +1,20 @@
+
+spring:
+  application:
+    name: user-api
+  datasource:
+    url: jdbc:mysql://local.docker.node1.com:3306/security?characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+## 配置HTTPS
+server:
+  ssl:
+    key-store: classpath:jizhe.key
+    key-store-password: 123456
+    key-password: 123456
+    enabled: false
