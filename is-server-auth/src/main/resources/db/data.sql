@@ -1,0 +1,4 @@
+
+
+INSERT INTO `oauth_client_details`(`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('orderApp', 'order-server', '$2a$10$b3EyDyVYG1y7kynJmNvye.E0kGYiFXZdcB54sqhr/xNTRw1rQy2k6', 'read,write', 'password', NULL, NULL, 3600, NULL, NULL, NULL);
+INSERT INTO `oauth_client_details`(`client_id`, `resource_ids`, `client_secret`, `scope`, `authorized_grant_types`, `web_server_redirect_uri`, `authorities`, `access_token_validity`, `refresh_token_validity`, `additional_information`, `autoapprove`) VALUES ('orderService', 'order-server', '$2a$10$YbfXYGdQ4NO.s8xSusqku.0pDwufpRJIwVDZ4fQdkJbbynpYqvzVu', 'read', 'password', NULL, NULL, 3600, NULL, NULL, NULL);

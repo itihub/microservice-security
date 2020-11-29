@@ -1,2 +1,11 @@
 server:
   port: 9090
+
+spring:
+  application:
+    name: auth-server
+  datasource:
+    url: jdbc:mysql://local.docker.node1.com:3306/security?characterEncoding=utf8
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
