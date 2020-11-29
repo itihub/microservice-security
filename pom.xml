@@ -13,6 +13,7 @@
         <module>is-order-api</module>
         <module>is-price-api</module>
         <module>is-server-auth</module>
+        <module>is-server-gateway</module>
     </modules>
 
 
