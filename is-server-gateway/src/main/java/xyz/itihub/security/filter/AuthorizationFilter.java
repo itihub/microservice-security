@@ -56,7 +56,7 @@ public class AuthorizationFilter extends ZuulFilter {
 
     private boolean hasPermission(TokenInfo tokenInfo, String requestURI) {
         // TODO: 与数据库交互 此处模拟
-        return RandomUtils.nextInt() % 2 == 0;
+        return true; // RandomUtils.nextInt() % 2 == 0;
     }
 
     private void handleError(int status, RequestContext requestContext) {
