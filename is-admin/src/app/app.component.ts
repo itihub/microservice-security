@@ -12,6 +12,7 @@ export class AppComponent {
   title = 'itihub microservice security';
   authenticated = false;
   credentials = {username:'itihub', password:'123456'};
+  order = {id:null, productId:null};
 
   constructor(private http: HttpClient) {
 
@@ -24,6 +25,22 @@ export class AppComponent {
 
     }, () => {
       alert('login fail');
+    })
+  }
+
+  logout() {
+    this.http.get('logout').subscribe(() => {
+      this.authenticated = false ;
+    }, () => {
+      alert('logout fail');
+    })
+  }
+
+  getOrder() {
+    this.http.get('api/order/orders/1').subscribe(data => {
+      this.order = data;
+    }, () => {
+      alert('get order fail')
     })
   }
 }

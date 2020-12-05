@@ -11,5 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class OrderInfo {
 
+    private Long id;
+
     private Long productId;
 }
