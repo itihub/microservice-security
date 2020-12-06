@@ -13,6 +13,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
 import javax.sql.DataSource;
 
@@ -22,6 +23,7 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 @Configuration
 @EnableAuthorizationServer
+@EnableJdbcHttpSession
 public class OAuth2AuthServerConfig extends AuthorizationServerConfigurerAdapter {
 
     private final PasswordEncoder passwordEncoder;
@@ -29,6 +31,8 @@ public class OAuth2AuthServerConfig extends AuthorizationServerConfigurerAdapter
     private final AuthenticationManager authenticationManager;
 
     private final DataSource dataSource;
+
+    private UserDetailServiceImpl userDetailService;
 
     @Bean
     public TokenStore tokenStore() {
@@ -67,8 +71,9 @@ public class OAuth2AuthServerConfig extends AuthorizationServerConfigurerAdapter
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
         endpoints
+                .userDetailsService(userDetailService)  // 支持refresh_token模式
                 .tokenStore(tokenStore())
-                .authenticationManager(authenticationManager);
+                .authenticationManager(authenticationManager); // 支持前四种模式
     }
 
     public static void main(String[] args) {

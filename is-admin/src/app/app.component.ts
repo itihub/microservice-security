@@ -11,26 +11,31 @@ export class AppComponent {
   // 属性定义
   title = 'itihub microservice security';
   authenticated = false;
-  credentials = {username:'itihub', password:'123456'};
-  order = {id:null, productId:null};
+  order = {};
 
   constructor(private http: HttpClient) {
 
-  }
-
-  // 方法定义
-  login() {
-    this.http.post('login', this.credentials).subscribe(() => {
-      this.authenticated = true;
-
-    }, () => {
-      alert('login fail');
+    this.http.get("me").subscribe(data => {
+      if (data){
+        this.authenticated = true;
+      }
+      if (!this.authenticated){
+        window.location.href = 'http://auth.itihub.com:9090/oauth/authorize?' +
+          'client_id=admin&' +
+          'redirect_uri=http://admin.itihub.com:8080/oauth/callback&' +
+          'response_type=code&' +
+          'state=abc';
+      }
     })
   }
 
+  // 方法定义
   logout() {
+    // 本地退出
     this.http.get('logout').subscribe(() => {
       this.authenticated = false ;
+      // 认证服务器退出
+      window.location.href = 'http://auth.itihub.com:9090/logout?redirect_uri=http://admin.itihub.com:8080';
     }, () => {
       alert('logout fail');
     })

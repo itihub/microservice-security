@@ -14,6 +14,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO: 模拟用户 可替换读取数据库
         return User.withUsername(username)
