@@ -8,6 +8,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -39,7 +40,20 @@ public class OAuthController {
     HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
 
     ResponseEntity<TokenInfo> token = restTemplate.exchange(oauthServiceUrl, HttpMethod.POST, entity, TokenInfo.class);
-    request.getSession().setAttribute("token", token.getBody().init());
+
+//    request.getSession().setAttribute("token", token.getBody().init());
+
+    Cookie accessTokenCookie = new Cookie("itihub_access_token", token.getBody().getAccess_token());
+    accessTokenCookie.setMaxAge(token.getBody().getExpires_in().intValue() - 3);
+    accessTokenCookie.setDomain("itihub.com");
+    accessTokenCookie.setPath("/");
+    response.addCookie(accessTokenCookie);
+
+    Cookie refreshTokenCookie = new Cookie("itihub_refresh_token", token.getBody().getRefresh_token());
+    refreshTokenCookie.setMaxAge(2592000);
+    refreshTokenCookie.setDomain("itihub.com");
+    refreshTokenCookie.setPath("/");
+    response.addCookie(refreshTokenCookie);
 
     response.sendRedirect("/");
   }
@@ -50,7 +64,7 @@ public class OAuthController {
     return token;
   }
 
-  @GetMapping(value = "logout")
+  @PostMapping(value = "logout")
   public void logout(HttpServletRequest request){
     request.getSession().invalidate();
   }

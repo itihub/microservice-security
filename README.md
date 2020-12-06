@@ -37,3 +37,4 @@
 
 
 ./npm install bootstrap@3 jquery --save
+./npm install ngx-cookie-service --save

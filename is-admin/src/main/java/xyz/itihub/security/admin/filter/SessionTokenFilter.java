@@ -12,7 +12,7 @@ import xyz.itihub.security.admin.controller.TokenInfo;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
+//@Component
 public class SessionTokenFilter extends ZuulFilter {
 
   private RestTemplate restTemplate = new RestTemplate();
