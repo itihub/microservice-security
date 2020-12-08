@@ -2,6 +2,7 @@ package xyz.itihub.sercurity.order;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,8 @@ public class OrderController {
      * 获取用户对象中指定属性 @AuthenticationPrincipal(expression = "#this.id") User user
      */
     @PostMapping
+//    @PreAuthorize("#oauth2.hasAnyScope('fly')") // 控制应用的访问权限
+//    @PreAuthorize("#hasRole('fly')") // 控制用户的访问权限
     public OrderInfo create(@RequestBody OrderInfo info, @AuthenticationPrincipal String username){
         log.info("userName is {}", username);
 //        log.info("userId is {}", user.getId());

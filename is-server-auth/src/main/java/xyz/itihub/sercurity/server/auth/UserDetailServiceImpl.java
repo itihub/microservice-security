@@ -19,6 +19,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         // TODO: 模拟用户 可替换读取数据库
         return User.withUsername(username)
                 .password(passwordEncoder.encode("123456"))
+                // hasRole 设置角色
                 .authorities("ROLE_ADMIN")
                 .build();
     }
