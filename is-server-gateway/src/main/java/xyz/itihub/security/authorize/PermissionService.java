@@ -1,4 +1,4 @@
-package xyz.itihub.security;
+package xyz.itihub.security.authorize;
 
 import org.springframework.security.core.Authentication;
 

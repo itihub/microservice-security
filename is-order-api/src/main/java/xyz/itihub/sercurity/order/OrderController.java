@@ -25,13 +25,13 @@ public class OrderController {
      * 获取用户对象中指定属性 @AuthenticationPrincipal(expression = "#this.id") User user
      */
     @PostMapping
-//    @PreAuthorize("#oauth2.hasAnyScope('fly')") // 控制应用的访问权限
-//    @PreAuthorize("#hasRole('fly')") // 控制用户的访问权限
+//    @PreAuthorize("#oauth2.hasAnyScope('read')") // 控制应用的访问权限
+//    @PreAuthorize("hasRole('ROLE_ADMIN')") // 控制用户的访问权限
     public OrderInfo create(@RequestBody OrderInfo info, @AuthenticationPrincipal String username){
         log.info("userName is {}", username);
 //        log.info("userId is {}", user.getId());
-        PriceInfo priceInfo = restTemplate.getForObject("http://localhost:9080/prices/" + info.getProductId(), PriceInfo.class);
-        log.info("price is {}", priceInfo.getPrice());
+//        PriceInfo priceInfo = restTemplate.getForObject("http://localhost:9080/prices/" + info.getProductId(), PriceInfo.class);
+//        log.info("price is {}", priceInfo.getPrice());
         return info;
     }
 

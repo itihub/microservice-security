@@ -1,4 +1,4 @@
-package xyz.itihub.security;
+package xyz.itihub.security.authorize;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.builder.ReflectionToStringBuilder;
@@ -17,9 +17,11 @@ public class PermissionServiceImpl implements PermissionService {
         String requestURI = request.getRequestURI();
         String method = request.getMethod();
 
+        String user  = (String) authentication.getPrincipal();
         // TODO: 自定义权限控制
 
-        log.info("request uri: {}", request.getRequestURI());
+        log.info("request uri: [{}] {}", method, requestURI);
+        log.info("request user: {}", user);
         log.info("authentication: {}", ReflectionToStringBuilder.toString(authentication));
 
         return RandomUtils.nextInt() % 2 == 0;

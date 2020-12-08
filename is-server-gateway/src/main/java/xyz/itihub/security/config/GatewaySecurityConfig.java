@@ -6,7 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import xyz.itihub.security.GatewayWebSecurityExpressionHandler;
+import org.springframework.security.web.access.ExceptionTranslationFilter;
+import xyz.itihub.security.auditlog.GatewayAuditLogFilter;
 
 /**
  * 资源服务器配置
@@ -25,8 +26,12 @@ public class GatewaySecurityConfig extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .addFilterBefore(new GatewayAuditLogFilter(), ExceptionTranslationFilter.class) // 添加自定义过滤器
+                .authorizeRequests()
                 .antMatchers("/token/**").permitAll()
+//                .anyRequest().authenticated();    // 所有请求经过认证即可访问
                 .anyRequest().access("#permissionService.hasPermission(request, authentication)");  // 访问控制
+
     }
 }

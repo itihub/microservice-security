@@ -1,4 +1,4 @@
-package xyz.itihub.security;
+package xyz.itihub.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
@@ -6,6 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurityExpressionHandler;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.stereotype.Component;
+import xyz.itihub.security.authorize.PermissionService;
 
 /**
  * 自定义表达式处理
