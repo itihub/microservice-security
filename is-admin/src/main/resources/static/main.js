@@ -64,7 +64,7 @@ class AppComponent {
         // 属性定义
         this.title = 'itihub microservice security';
         this.authenticated = false;
-        this.order = {};
+        this.order = { id: null, productId: null };
         // this.http.get("me").subscribe(data => {
         this.http.get("api/user/me").subscribe(data => {
             if (data) {

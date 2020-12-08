@@ -1,2 +1,14 @@
 server:
   port: 9060
+
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: orderService
+      client-secret: 123456
+    # 启动服务器时去获取JWT token key
+    resource:
+      jwt:
+        key-uri: http://auth.itihub.com:9090/oauth/token_key

@@ -3,6 +3,7 @@ package xyz.itihub.sercurity.server.auth;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
+import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
+import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.session.jdbc.config.annotation.web.http.EnableJdbcHttpSession;
 
 import javax.sql.DataSource;
@@ -36,12 +40,24 @@ public class OAuth2AuthServerConfig extends AuthorizationServerConfigurerAdapter
 
     @Bean
     public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource);
+        return new JwtTokenStore(jwtTokenEnhancer()  );
+    }
+
+    @Bean
+    public JwtAccessTokenConverter jwtTokenEnhancer(){
+        JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
+        // 进行签名，防止篡改
+//        converter.setSigningKey("123456");    // 字符串加密
+        // 签名加密
+        KeyStoreKeyFactory keyStoreKeyFactory = new KeyStoreKeyFactory(new ClassPathResource("jizhe.key"), "123456".toCharArray());
+        converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jizhe"));
+        return converter;
     }
 
     @Override
     public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
-        security.checkTokenAccess("isAuthenticated()");
+        security.tokenKeyAccess("isAuthenticated()")    //暴露token key
+                .checkTokenAccess("isAuthenticated()");
     }
 
     // 客户端配置
@@ -73,6 +89,7 @@ public class OAuth2AuthServerConfig extends AuthorizationServerConfigurerAdapter
         endpoints
                 .userDetailsService(userDetailService)  // 支持refresh_token模式
                 .tokenStore(tokenStore())
+                .tokenEnhancer(jwtTokenEnhancer())
                 .authenticationManager(authenticationManager); // 支持前四种模式
     }
 

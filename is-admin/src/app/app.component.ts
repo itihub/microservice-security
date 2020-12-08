@@ -12,7 +12,7 @@ export class AppComponent {
   // 属性定义
   title = 'itihub microservice security';
   authenticated = false;
-  order = {};
+  order = {id:null, productId:null};
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
 

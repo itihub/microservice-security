@@ -44,3 +44,14 @@ spring:
   jpa:
     generate-ddl: true
     show-sql: true
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: gateway
+      client-secret: 123456
+    # 获取JWT token key
+    resource:
+      jwt:
+        key-uri: http://auth.itihub.com:9090/oauth/token_key
