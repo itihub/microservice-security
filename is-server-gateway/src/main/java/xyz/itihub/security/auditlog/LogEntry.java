@@ -22,7 +22,7 @@ public class LogEntry implements IToLog {
     private String method;
     private String path;
     private String status;
-    private String username;
+    private String remark;
 
     @Override
     public Object[] toLog() {
@@ -34,7 +34,7 @@ public class LogEntry implements IToLog {
                 "method", method,
                 "path", path,
                 "status", status,
-                "username", username
+                "remark", remark
         };
     }
 }
