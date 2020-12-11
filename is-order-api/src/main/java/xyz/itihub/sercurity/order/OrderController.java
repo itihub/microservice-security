@@ -1,5 +1,9 @@
 package xyz.itihub.sercurity.order;
 
+import com.alibaba.csp.sentinel.Entry;
+import com.alibaba.csp.sentinel.SphU;
+import com.alibaba.csp.sentinel.annotation.SentinelResource;
+import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,11 +31,29 @@ public class OrderController {
     @PostMapping
 //    @PreAuthorize("#oauth2.hasAnyScope('read')") // 控制应用的访问权限
 //    @PreAuthorize("hasRole('ROLE_ADMIN')") // 控制用户的访问权限
-    public OrderInfo create(@RequestBody OrderInfo info, @AuthenticationPrincipal String username){
+    @SentinelResource(value = "createOrder", blockHandler = "doOnBlock")  // sentinel 注解方式
+    public OrderInfo create(@RequestBody OrderInfo info, @AuthenticationPrincipal String username) throws InterruptedException {
+
         log.info("userName is {}", username);
+
+        Thread.sleep(50L);
+
+        // sentinel 定义资源 代码方式配置
+//        try (Entry entry = SphU.entry("createOrder")) {
+//            log.info("userName is {}", username);
+//        }catch (BlockException e){
+//            log.info("block");
+//        }
+
 //        log.info("userId is {}", user.getId());
 //        PriceInfo priceInfo = restTemplate.getForObject("http://localhost:9080/prices/" + info.getProductId(), PriceInfo.class);
 //        log.info("price is {}", priceInfo.getPrice());
+        return info;
+    }
+
+    // 降级函数
+    public OrderInfo doOnBlock(@RequestBody OrderInfo info, @AuthenticationPrincipal String username, BlockException exception){
+        log.info("blocked by" + exception.getClass().getSimpleName());
         return info;
     }
 

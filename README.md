@@ -121,3 +121,17 @@ Authorization: Basic b3JkZXJTZXJ2aWNlOjEyMzQ1Ng==
 ./npm install ngx-cookie-service --save
 ```  
 
+
+## Sentinel Dashboard  
+
+1. 下载Dashboard Jar  
+    https://github.com/alibaba/Sentinel/releases  
+2. 运行  
+    ```shell script
+   java -Dserver.port=8080 \ 
+   -Dcsp.sentinel.dashboard.server=localhost:8080 \
+   -Dproject.name=sentinel-dashboard -jar sentinel-dashboard-1.6.3.jar
+   ```  
+4. 访问  
+   localhost:8080  
+   默认登录名/密码  sentinel  

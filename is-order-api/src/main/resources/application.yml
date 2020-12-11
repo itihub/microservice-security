@@ -12,3 +12,12 @@ security:
     resource:
       jwt:
         key-uri: http://auth.itihub.com:9090/oauth/token_key
+
+spring:
+  application:
+    name: orderApi
+  cloud:
+    sentinel:
+      transport:
+        port: 8719                      # sentinel 与dashboard通讯端口
+        dashboard: localhost:8080       # dashboard 地址
