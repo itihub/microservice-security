@@ -5,11 +5,15 @@ import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRule;
 import com.alibaba.csp.sentinel.slots.block.degrade.DegradeRuleManager;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRule;
 import com.alibaba.csp.sentinel.slots.block.flow.FlowRuleManager;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowItem;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRule;
+import com.alibaba.csp.sentinel.slots.block.flow.param.ParamFlowRuleManager;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,5 +46,20 @@ public class SentinelConfig implements ApplicationListener<ContextRefreshedEvent
         List<DegradeRule> degradeRules = new ArrayList<>();
         degradeRules.add(degradeRule);
         DegradeRuleManager.loadRules(degradeRules);
+
+        // 热点规则
+        ParamFlowRule getOrderRule = new ParamFlowRule();
+        getOrderRule.setResource("getOrder");
+        getOrderRule.setGrade(RuleConstant.FLOW_GRADE_QPS);
+        getOrderRule.setCount(10);
+        getOrderRule.setDurationInSec(1); // 时间窗口
+        getOrderRule.setParamIdx(0);
+        ParamFlowItem paramFlowItem = new ParamFlowItem();
+        paramFlowItem.setClassType("long");
+        paramFlowItem.setObject("1");
+        paramFlowItem.setCount(1);
+        getOrderRule.setParamFlowItemList(Arrays.asList(paramFlowItem));
+
+        ParamFlowRuleManager.loadRules(Arrays.asList(getOrderRule));
     }
 }

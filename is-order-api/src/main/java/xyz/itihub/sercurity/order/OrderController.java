@@ -58,7 +58,8 @@ public class OrderController {
     }
 
     @GetMapping("/{id}")
-    public OrderInfo create(@PathVariable Long id, @AuthenticationPrincipal String username){
+    @SentinelResource(value = "getOrder")
+    public OrderInfo getInfo(@PathVariable Long id, @AuthenticationPrincipal String username){
         log.info("orderId is {}", id);
         log.info("userName is {}", username);
         OrderInfo info = new OrderInfo();
