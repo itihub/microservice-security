@@ -17,9 +17,9 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Sentinel 配置
+ * Sentinel 代码方式配置
  */
-@Component
+//@Component
 public class SentinelConfig implements ApplicationListener<ContextRefreshedEvent> {
 
     @Override

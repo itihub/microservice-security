@@ -20,4 +20,10 @@ spring:
     sentinel:
       transport:
         port: 8719                      # sentinel 与dashboard通讯端口
-        dashboard: localhost:8080       # dashboard 地址
+        dashboard: localhost:8020       # dashboard 地址
+
+
+sentinel:
+  zookeeper:
+    address: local.docker.node1.com:2181
+    path: /sentinel_rule_config
