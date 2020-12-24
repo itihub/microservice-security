@@ -11,7 +11,7 @@ security:
     # 启动服务器时去获取JWT token key
     resource:
       jwt:
-        key-uri: http://auth.itihub.com:9090/oauth/token_key
+        key-uri: http://is-server-auth:9090/oauth/token_key
 
 spring:
   application:
@@ -27,3 +27,15 @@ sentinel:
   zookeeper:
     address: local.docker.node1.com:2181
     path: /sentinel_rule_config
+
+# actuator 端点暴露
+management:
+  endpoints:
+    prometheus:
+      enbale: true
+    web:
+      exposure:
+        include:
+          - prometheus
+          - info
+          - health

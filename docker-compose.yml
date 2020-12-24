@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+  is-order-api:
+    build: ./is-order-api
+    image: jizhe/is-order-api
+    networks:
+      - internal_access
+
+  is-server-auth:
+    build: ./is-server-auth
+    image: jizhe/is-server-auth
+    networks:
+      - internal_access
+
+  is-server-gateway:
+    build: ./is-server-gateway
+    image: jizhe/is-server-gateway
+    networks:
+      - internal_access
+
+
+networks:
+  internal_access:
+    internal: true

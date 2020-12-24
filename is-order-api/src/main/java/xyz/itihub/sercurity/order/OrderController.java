@@ -6,6 +6,7 @@ import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.alibaba.csp.sentinel.slots.block.BlockException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
@@ -36,7 +37,8 @@ public class OrderController {
 
         log.info("userName is {}", username);
 
-        Thread.sleep(50L);
+//        Thread.sleep(50L);
+        Thread.sleep(RandomUtils.nextInt(100, 1000));
 
         // sentinel 定义资源 代码方式配置
 //        try (Entry entry = SphU.entry("createOrder")) {
