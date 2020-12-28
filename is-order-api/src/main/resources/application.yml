@@ -11,7 +11,7 @@ security:
     # 启动服务器时去获取JWT token key
     resource:
       jwt:
-        key-uri: http://is-server-auth:9090/oauth/token_key
+        key-uri: http://localhost:9090/oauth/token_key
 
 spring:
   application:
