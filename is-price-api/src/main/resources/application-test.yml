@@ -1,0 +1,11 @@
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: ${PRICE_OAUTH_CLIENT_ID}
+      client-secret: ${PRICE_OAUTH_CLIENT_SECRET}
+    # 启动服务器时去获取JWT token key
+    resource:
+      jwt:
+        key-uri: ${PRICE_OAUTH_RESOURCE_JWT_KEY_URI}

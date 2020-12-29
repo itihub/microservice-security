@@ -1,14 +1,8 @@
 server:
   port: 9080
 
-
-security:
-  oauth2:
-    # 认证信息
-    client:
-      client-id: priceService
-      client-secret: 123456
-    # 启动服务器时去获取JWT token key
-    resource:
-      jwt:
-        key-uri: http://auth.itihub.com:9090/oauth/token_key
+spring:
+  profiles:
+    active: @env@
+  application:
+    name: price-api

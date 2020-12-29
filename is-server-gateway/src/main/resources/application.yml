@@ -1,57 +1,8 @@
-zuul:
-  routes:
-    user:
-      url: http://localhost:9090
-    token:
-      url: http://localhost:9090
-    order:
-      url: http://localhost:9060
-  sensitive-headers:  # 敏感头设置空 允许任何敏感头进行转发
-  ratelimit:
-    enabled: true
-    repository: jpa
-#    默认限流 策略
-    default-policy-list:
-      - limit: 2  #请求次数
-        quota: 1  #请求响应阈值：请求次数加起来不能超过此值
-        refresh-interval: 1 #时间窗口
-        type:   # 根据类型控制流量
-          - url   # 根据请求URI指定
-          - httpmethod  # 根据请求方法指定
-#          - role # 根据角色限流
-#          - user   # 根据用户指定
-#          - origin # 根据IP指定
-#   为路由转发指定限流策略
-#    policy-list:
-#      token:
-#      - limit: 2
-#        quota: 1
-#        refresh-interval: 1
-#        type:
-#          - url
-#          - httpmethod
 server:
   port: 9070
 
 spring:
+  profiles:
+    active: @env@
   application:
     name: gateway
-  datasource:
-    url: jdbc:mysql://local.docker.node1.com:3306/security?characterEncoding=utf8
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    generate-ddl: true
-    show-sql: true
-
-security:
-  oauth2:
-    # 认证信息
-    client:
-      client-id: gateway
-      client-secret: 123456
-    # 获取JWT token key
-    resource:
-      jwt:
-        key-uri: http://auth.itihub.com:9090/oauth/token_key

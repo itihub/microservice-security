@@ -1,0 +1,36 @@
+
+spring:
+  cloud:
+    sentinel:
+      transport:
+        port: ${ORDER_SENTINEL_PORT}                      # sentinel 与dashboard通讯端口
+        dashboard: ${ORDER_DASHBOARD}                     # dashboard 地址
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: ${ORDER_OAUTH_CLIENT_ID}
+      client-secret: ${ORDER_OAUTH_CLIENT_SECRET}
+    # 启动服务器时去获取JWT token key
+    resource:
+      jwt:
+        key-uri: ${ORDER_OAUTH_RESOURCE_JWT_KEY_URI}
+
+sentinel:
+  zookeeper:
+    address: ${ORDER_ZOOKEEPER_ADDRESS}
+    path: ${ORDER_ZOOKEEPER_PATH}
+
+
+# actuator 端点暴露
+management:
+  endpoints:
+    prometheus:
+      enbale: true
+    web:
+      exposure:
+        include:
+          - prometheus
+          - info
+          - health

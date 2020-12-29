@@ -1,0 +1,53 @@
+zuul:
+  routes:
+    user:
+      url: ${USER_SERVER_URL}
+    token:
+      url: ${AUTH_SERVER_URL}
+    order:
+      url: ${ORDER_SERVER_URL}
+  sensitive-headers:  # 敏感头设置空 允许任何敏感头进行转发
+  ratelimit:
+    enabled: true
+    repository: jpa
+#    默认限流 策略
+    default-policy-list:
+      - limit: 2  #请求次数
+        quota: 1  #请求响应阈值：请求次数加起来不能超过此值
+        refresh-interval: 1 #时间窗口
+        type:   # 根据类型控制流量
+          - url   # 根据请求URI指定
+          - httpmethod  # 根据请求方法指定
+#          - role # 根据角色限流
+#          - user   # 根据用户指定
+#          - origin # 根据IP指定
+#   为路由转发指定限流策略
+#    policy-list:
+#      token:
+#      - limit: 2
+#        quota: 1
+#        refresh-interval: 1
+#        type:
+#          - url
+#          - httpmethod
+
+spring:
+  datasource:
+    url: ${GATEWAY_DATASOURCE_URL}
+    username: ${GATEWAY_DATASOURCE_USERNAME}
+    password: ${GATEWAY_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: ${GATEWAY_OAUTH_CLIENT_ID}
+      client-secret: ${GATEWAY_OAUTH_CLIENT_SECRET}
+    # 获取JWT token key
+    resource:
+      jwt:
+        key-uri: ${GATEWAY_OAUTH_RESOURCE_JWT_KEY_URI}

@@ -1,0 +1,36 @@
+
+spring:
+  cloud:
+    sentinel:
+      transport:
+        port: 8719                      # sentinel 与dashboard通讯端口
+        dashboard: localhost:8020       # dashboard 地址
+
+security:
+  oauth2:
+    # 认证信息
+    client:
+      client-id: orderService
+      client-secret: 123456
+    # 启动服务器时去获取JWT token key
+    resource:
+      jwt:
+        key-uri: http://localhost:9090/oauth/token_key
+
+sentinel:
+  zookeeper:
+    address: local.docker.node1.com:2181
+    path: /sentinel_rule_config
+
+
+# actuator 端点暴露
+management:
+  endpoints:
+    prometheus:
+      enbale: true
+    web:
+      exposure:
+        include:
+          - prometheus
+          - info
+          - health

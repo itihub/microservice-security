@@ -5,13 +5,7 @@ server:
       timeout: 2592000
 
 spring:
+  profiles:
+    active: @env@
   application:
     name: auth-server
-  datasource:
-    url: jdbc:mysql://local.docker.node1.com:3306/security?characterEncoding=utf8
-    username: root
-    password: 123456
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  redis:
-    host: local.docker.node1.com
-    port: 6379

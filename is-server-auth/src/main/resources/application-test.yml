@@ -1,0 +1,10 @@
+
+spring:
+  datasource:
+    url: ${AUTH_DATASOURCE_URL}
+    username: ${AUTH_DATASOURCE_USERNAME}
+    password: ${AUTH_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: ${AUTH_REDIS_HOST}
+    port: ${AUTH_REDIS_PORT}
