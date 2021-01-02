@@ -6,6 +6,14 @@ input {
 	tcp {
 		port => 5000
 	}
+
+	# 从kafka接收消息
+	kafka {
+	    id => "my_plugin_id"
+	    bootstrap_servers => "192.168.157.110:9092"
+	    topics =>　["test"]
+	    auto_offset_reset => "latest"
+	}
 }
 
 ## Add your filters / logstash plugins configuration here
