@@ -1,0 +1,30 @@
+input {
+	beats {
+		port => 5044
+	}
+
+	tcp {
+		port => 5000
+	}
+}
+
+## Add your filters / logstash plugins configuration here
+
+# 添加过滤器 做日志格式转换
+# logstash patterns 查询地址 https://github.com/logstash-plugins/logstash-patterns-core/blob/master/patterns/grok-patterns
+filter {
+    grok {
+        match => {
+            "message" =>　"%{TIMESTAMP_ISO8601:logTime} %{GREEDYDATA:logThread} %{LOGLEVEL:logLevel} %{GREEDYDATA:loggerClass} - %{GREEDYDATA:logContent}"
+        }
+    }
+}
+
+output {
+	elasticsearch {
+		hosts => "elasticsearch:9200"
+		user => "elastic"
+		password => "changeme"
+		ecs_compatibility => disabled
+	}
+}

@@ -2,11 +2,23 @@
 <!DOCTYPE configuration>
 <configuration>
 
+    <!-- logback 输入到 logstash 配置 -->
     <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashAccessTcpSocketAppender">
+        <!-- logstash 地址 -->
         <destination>localhost:5000</destination>
-        <encoder charset="YTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />
+
+        <!-- 将日志转化成JSON输出 缺点：存入es是一个大JSON 不便于查看-->
+<!--        <encoder charset="UTF-8" class="net.logstash.logback.encoder.LogstashEncoder" />-->
+
+        <!-- 定义格式 -->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
     </appender>
 
+    <!-- 默认 Spring Boot 日志配置 -->
     <include resource="org/springframework/boot/logging/logback/base.xml" />
 
     <root level="INFO">
