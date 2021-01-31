@@ -8,3 +8,9 @@ spring:
   redis:
     host: local.docker.node1.com
     port: 6379
+
+security:
+  oauth2:
+    store-type: jwt    # jwt / redis（默认）
+    client:
+      store-type: redis  # 不配置默认使用JDBC

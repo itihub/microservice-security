@@ -80,24 +80,24 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
 
     private ValidateCodeType getValidateCodeType(HttpServletRequest request) {
         ValidateCodeType result = null;
-        Set<String> urls = urlMap.keySet();
-        for (String url : urls) {
-            //查询是否有匹配的请求路径
-            String[] httpUri = StringUtils.splitByWholeSeparatorPreserveAllTokens(url, " ");
-            boolean methodFlag = false;
-            String uri;
-            if (httpUri.length == 2){
-                methodFlag = StringUtils.equalsIgnoreCase(request.getMethod(), httpUri[0]);
-                uri = httpUri[1];
-            }else {
-                methodFlag = true;
-                uri = httpUri[0];
-            }
-            if (pathMatcher.match(uri, request.getRequestURI()) && methodFlag) {
-                //获取验证类型
-                result = urlMap.get(url);
-            }
-        }
+//        Set<String> urls = urlMap.keySet();
+//        for (String url : urls) {
+//            //查询是否有匹配的请求路径
+//            String[] httpUri = StringUtils.splitByWholeSeparatorPreserveAllTokens(url, " ");
+//            boolean methodFlag = false;
+//            String uri;
+//            if (httpUri.length == 2){
+//                methodFlag = StringUtils.equalsIgnoreCase(request.getMethod(), httpUri[0]);
+//                uri = httpUri[1];
+//            }else {
+//                methodFlag = true;
+//                uri = httpUri[0];
+//            }
+//            if (pathMatcher.match(uri, request.getRequestURI()) && methodFlag) {
+//                //获取验证类型
+//                result = urlMap.get(url);
+//            }
+//        }
         return result;
     }
 }

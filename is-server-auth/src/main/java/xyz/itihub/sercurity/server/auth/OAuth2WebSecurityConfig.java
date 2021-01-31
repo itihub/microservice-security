@@ -15,6 +15,9 @@ import xyz.itihub.sercurity.AuthConstant;
 import xyz.itihub.sercurity.authentication.config.OtpAuthenticationSecurityConfig;
 import xyz.itihub.sercurity.validate.config.ValidateCodeAuthenticationSecurityConfig;
 
+/**
+ * Web安全配置
+ */
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity

@@ -21,7 +21,7 @@ public class RedisValidateCodeRepository implements ValidateCodeRepository {
     public void save(ServletWebRequest request, ValidateCode validateCode, ValidateCodeType validateCodeType) {
         Duration duration = Duration.between(LocalDateTime.now(), validateCode.getExpireTime());
         redisTemplate.opsForValue().set(buildKey(request, validateCodeType)
-                , validateCode, duration.getSeconds(), TimeUnit.SECONDS);
+                , validateCode, 1, TimeUnit.HOURS);
     }
 
     @Override
