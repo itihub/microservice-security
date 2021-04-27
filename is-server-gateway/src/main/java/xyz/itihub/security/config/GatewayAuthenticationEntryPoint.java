@@ -38,7 +38,7 @@ public class GatewayAuthenticationEntryPoint extends OAuth2AuthenticationEntryPo
         if (authException instanceof AccessTokenRequiredException){
 //            logger.info("2. update log to 401");
             LogContext.setRemark("unauthorized");
-        // 无效令牌
+        // 无效/过期令牌   异常：InsufficientAuthenticationException
         }else {
 //            logger.info("2. add log 401");
 

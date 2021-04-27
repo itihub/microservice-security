@@ -25,9 +25,12 @@ public class GatewaySecurityConfig extends ResourceServerConfigurerAdapter {
 
     private final GatewayAuthenticationEntryPoint gatewayAuthenticationEntryPoint;
 
+//    private final GatewayAuthenticationManager gatewayAuthenticationManager;
+
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
         resources
+//                .authenticationManager(gatewayAuthenticationManager)  // 自定义认证管理器 默认使用OAuth2AuthenticationManager
                 .authenticationEntryPoint(gatewayAuthenticationEntryPoint) // 401未认证错误处理
                 .accessDeniedHandler(gatewayAccessDeniedHandler)  // 403访问拒绝处理
                 .expressionHandler(gatewayWebSecurityExpressionHandler) // 权限校验表达式
@@ -41,7 +44,7 @@ public class GatewaySecurityConfig extends ResourceServerConfigurerAdapter {
                 .addFilterBefore(new GatewayAuditLogFilter(), ExceptionTranslationFilter.class) // 添加自定义过滤器
                 .authorizeRequests()
                 .antMatchers("/token/**").permitAll()
-//                .anyRequest().authenticated();    // 所有请求经过认证即可访问
+//                .anyRequest().authenticated();   // 所有请求经过认证即可访问
                 .anyRequest().access("#permissionService.hasPermission(request, authentication)");  // 访问控制
 
     }

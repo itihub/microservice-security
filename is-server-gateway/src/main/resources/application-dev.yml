@@ -49,5 +49,9 @@ security:
       client-secret: 123456
     # 获取JWT token key
     resource:
-      jwt:
-        key-uri: http://auth.itihub.com:9090/oauth/token_key
+#      jwt:
+#        key-uri: http://auth.itihub.com:9090/oauth/token_key
+      token-info-uri: http://auth.itihub.com:9090/oauth/check_token
+      user-info-uri: http://auth.itihub.com:9090/oauth/user
+    authorization:
+      check-token-access: http://auth.itihub.com:9090/oauth/check_token
