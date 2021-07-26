@@ -99,7 +99,7 @@ Authorization: Basic b3JkZXJTZXJ2aWNlOjEyMzQ1Ng==
 ## is-admin 项目初始化步骤  
 1. 使用Maven安装Node和Npm包管理器构建开发环境  
 执行```mvn frontend:install-node-and-npm```命令生成node文件夹  
-执行```node --version```检查node版本  
+执行```node --version```检查node版本 ```Win执行 node/node.exe --version```      
 执行```./npm --version```检查npm版本  
 
 2. 安装angular cli 客户端  
